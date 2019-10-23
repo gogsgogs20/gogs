@@ -24,7 +24,7 @@ stage("Quality Gate"){
       error "Pipeline aborted due to quality gate failure: ${qg.status}"}
 
     }
-*/
+
 stage('Test'){
     withEnv(["GOROOT=${root}", "GOPATH=${WORKSPACE}", "PATH+GO=${root}/bin", "GOGS_SRC=${WORKSPACE}/src/github.com/gogs/gogs"]) {
 
@@ -33,6 +33,7 @@ stage('Test'){
     
 }
 }
+*/
 
 stage('Build'){
 
