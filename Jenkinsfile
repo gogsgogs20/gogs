@@ -7,15 +7,15 @@ notifyBuild()
 stage('Checkout'){
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src/github.com/gogs/gogs/']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/gogsgogs20/gogs.git']]])
 }
-/*
+
 stage('SonarQube analysis') {
 
     withSonarQubeEnv('sonar'){
-        sh "${scannerHome}/bin/sonar-scanner -Dsonar.host.url=http://10.26.34.160 -Dsonar.projectName=Gogsproject -Dsonar.projectVersion=1.0 -Dsonar.projectKey=gogsproject -Dsonar.sources=./src/github.com/gogs/gogs -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/gogs_slave_pipeline -Dsonar.analysis.mode=publish"
+        sh "${scannerHome}/bin/sonar-scanner -Dsonar.host.url=http://10.26.34.152:32128 -Dsonar.projectName=Gogsproject -Dsonar.projectVersion=1.0 -Dsonar.projectKey=gogsproject -Dsonar.sources=./src/github.com/gogs/gogs -Dsonar.projectBaseDir=/var/jenkins_home/workspace/pipeline -Dsonar.analysis.mode=publish"
     }
     }
 
-
+/*
 stage("Quality Gate"){
 
    sleep(20)
@@ -33,8 +33,8 @@ stage('Test'){
     
 }
 }
-*/
 
+*/
 stage('Build'){
 
     withEnv(["GOROOT=${root}", "GOPATH=${WORKSPACE}", "PATH+GO=${root}/bin", "OUTPUT_PATH=${WORKSPACE}/artifacts/build${BUILD_ID}", "GOGS_SRC=${WORKSPACE}/src/github.com/gogs/gogs"]) {
