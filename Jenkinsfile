@@ -60,7 +60,7 @@ stage('Release'){
     sh 'cp $GOGS_SRC/scripts $OUTPUT_PATH -r'
     sh 'cd $WORKSPACE/artifacts && tar -cvf build$BUILD_ID.tar.gz build$BUILD_ID'
     }
-    sh 'curl -v -u admin:g6JZ7AMX --upload-file $WORKSPACE/artifacts/build$BUILD_ID.tar.gz http://10.26.34.133:8081/repository/GoArtifacts/release/$BUILD_ID/build$BUILD_ID.tar.gz'
+   // sh 'curl -v -u admin:g6JZ7AMX --upload-file $WORKSPACE/artifacts/build$BUILD_ID.tar.gz http://10.26.34.133:8081/repository/GoArtifacts/release/$BUILD_ID/build$BUILD_ID.tar.gz'
 }
 
 }
