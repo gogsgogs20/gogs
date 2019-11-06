@@ -2,7 +2,7 @@ node(){
 def root = tool name: '1.8.7', type: 'go'
 def scannerHome = tool 'sonar';
 try{
-//notifyBuild()
+notifyBuild()
     
 stage('Checkout'){
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src/github.com/gogs/gogs/']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/gogsgogs20/gogs.git']]])
