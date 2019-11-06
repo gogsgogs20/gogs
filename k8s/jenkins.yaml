@@ -1,0 +1,42 @@
+jenkins:
+  systemMessage: "I did this using Jenkins Configuration as Code Plugin \n\n"
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  go:
+    installations:
+    - name: "1.8.7"
+      home: ""
+      properties:
+      - installSource:
+          installers:
+          - golangInstaller:
+              id: "1.8.7"
+  sonarRunnerInstallation:
+    installations:
+    - name: "sonar"
+      home: ""
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.2.0.1873"
+jobs:
+  - script: >
+      pipelineJob('pipeline') {
+          definition {
+              cpsScm {
+                  scriptPath 'Jenkinsfile'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/gogsgogs20/gogs.git' }
+                        branch 'master'
+                        extensions {}
+                    }
+                  }
+              }
+          }
+      }
+

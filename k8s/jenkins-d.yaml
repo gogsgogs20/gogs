@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-master
+  namespace: ci
+spec:
+  selector:
+    matchLabels:
+      name: jenkins-master
+  template:
+    metadata:
+      labels:
+        name: jenkins-master
+    spec:
+      containers:
+        - name: jenkins-master
+          image: turbolviv/jenkinsd
+          securityContext:
+            runAsUser: 0
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          volumeMounts:
+            - name: jenkins-master-vol
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-master-vol
+          persistentVolumeClaim:
+            claimName: jenkins-master-claim
+      nodeSelector:
+        kubernetes.io/hostname: k8s-n1
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: jenkins-master-service
+  namespace: ci
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: http
+      targetPort: 8080
+    - port: 50000
+      name: jenkins-master
+      targetPort: 50000
+  selector:
+    name: jenkins-master
+

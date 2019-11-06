@@ -1,0 +1,33 @@
+  GNU nano 2.3.1                                                        File: jenkins-pv.yaml                                                                                                                      
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: jenkins-data
+  namespace: ci
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 5Gi
+  storageClassName:
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/jenkins"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jenkins-master-claim
+  namespace: ci
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      type: local
