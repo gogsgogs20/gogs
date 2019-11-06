@@ -50,7 +50,7 @@ stage('Release'){
     
     timeout(time:5, unit:'DAYS') 
     {
-        sh 'cd $GOGS_SRC && ./gogs web'
+        //sh 'cd $GOGS_SRC && ./gogs web'
         input message:'Approve deployment?', submitter: 'it-ops'
         
     }
